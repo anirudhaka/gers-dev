@@ -306,7 +306,7 @@ fn run_algorithm(grammar: &grammar::Grammar1) -> (f64, f64, String) {
 
 
 fn main() {
-    let grammar_filename = ".\\grammars\\vlad1.bnf";
+    let grammar_filename = ".\\grammars\\vlad2.bnf";
     let num_runs = 5; // Number of runs
 
     let mut best_fitnesses = Vec::new();
@@ -323,8 +323,11 @@ fn main() {
                 best_expressions.push(best_expr);
             }
 
+            println!("best fitnesses: {:?}", best_fitnesses);
+
             // Analyze results
-            let overall_best_fitness = best_fitnesses.iter().cloned().fold(0./0., f64::max);
+            // let overall_best_fitness = best_fitnesses.iter().cloned().fold(0./0., f64::max);
+            let overall_best_fitness = best_fitnesses.iter().cloned().fold(f64::MAX, f64::min);
             let overall_avg_fitness: f64 = average_fitnesses.iter().sum::<f64>() / num_runs as f64;
 
             println!("Overall Best Fitness: {}", overall_best_fitness);
@@ -348,8 +351,9 @@ fn main() {
                 //     };
                     
                 // }
-                let test_fitness = evaluate_fitness(&expr, &test_data);
-                println!("Run {}: test fitness: {}", i+1, test_fitness);
+                
+                // test_fitness[i] = evaluate_fitness(&expr, &test_data);
+                // println!("Run {}: test fitness: {}", i+1, test_fitness[i]);
             }
         },
         Err(e) => {
